@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:你的项目名称/main.dart'; // 确保导入路径正确
+import '../lib/main.dart';
 
 void main() {
   testWidgets('Todo app smoke test', (WidgetTester tester) async {
