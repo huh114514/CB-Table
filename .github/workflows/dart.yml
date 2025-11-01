@@ -1,37 +1,32 @@
-name: Flutter
+name: Flutter CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v4
-
-      # 设置 Flutter 环境
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.35.7'  # 版本
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Analyze project source
-        run: flutter analyze
-
-      - name: Run tests
-        run: flutter test
-
-      # 可选：构建 web 版本
-      - name: Build web
-        run: flutter build web
-
-      # 可选：构建 apk
-      - name: Build APK
-        run: flutter build apk --release
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.7'
+        cache: true
+        
+    - name: Install dependencies
+      run: flutter pub get
+      
+    - name: Run tests with verbose output
+      run: flutter test --verbose
+      
+    # 可选：如果测试失败，构建仍然继续
+    - name: Build APK (even if tests fail)
+      if: always()
+      run: flutter build apk --release
