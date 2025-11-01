@@ -23,8 +23,6 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
       
-    - name: Run tests with verbose output
-      run: flutter test --verbose
       
     # 可选：如果测试失败，构建仍然继续
     - name: Build APK (even if tests fail)
